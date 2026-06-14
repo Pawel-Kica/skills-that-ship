@@ -37,27 +37,27 @@ No framework, just what works.
 
 ## The skills
 
-### handoff
+### 1. 📤 handoff
 
 Compacts the conversation into a doc a fresh agent can resume from. For when context is full or you're switching machines and you want the next session to start where this one ended.
 
-### implement-handoff
+### 2. 📥 implement-handoff
 
 The other half. Describe a handoff loosely ("the reminder one"), it finds the file, summarises the status, and picks the work back up.
 
-### html
+### 3. 🌐 html
 
 Renders a non-trivial answer as a self-contained HTML page and opens it. Decision trees, diffs, dashboards, diagrams: anything that's worse as a wall of markdown.
 
-### pcopy
+### 4. 📋 pcopy
 
 Pulls one piece out of the last reply to your clipboard: the curl command, the JSON, the second code block. No mouse, no reselecting. (macOS.)
 
-### propose-steps
+### 5. 🗺️ propose-steps
 
 Plan before execute. Lays out the exact steps, tools, and commands, then waits for your OK. No disk artifacts, no surprises.
 
-### afk-mode
+### 6. 🤖 afk-mode
 
 Hand it the wheel. Takes the task end to end with no clarifying questions, notes the defaults it picked, and leaves a report when it's done.
 
