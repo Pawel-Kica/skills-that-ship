@@ -27,13 +27,19 @@ Reload Claude Code and type `/` to see them. The clipboard and browser bits use 
 
 ## How to write a skill that ships
 
-No framework, just what works.
+No framework, just what works. Same idea as a [prompt that ships](https://github.com/Pawel-Kica/prompts-that-ship), with one flip.
 
-1. **Terse beats prose.** A skill is instructions for a model, not an essay for a human. Cut every word the model doesn't need.
-2. **One job per skill.** A variation is a new skill, not a bigger one.
-3. **A sharp trigger and description.** That's how the agent (and you) find it. Say what it does and when to fire it.
-4. **Procedure, not philosophy.** Numbered steps, exact commands, real paths. "Run X, then Y" beats "consider doing X".
-5. **Say when NOT to use it.** The best skills name their own edges, so the agent doesn't reach for them wrong.
+### 1. Write the steps, not the goal
+
+A prompt sets a goal and lets the agent find the path. A skill is the opposite: a path you have already walked and want to repeat. So write the steps, the exact commands, real paths, in order.
+
+### 2. Keep it short
+
+A skill loads every time it fires, so every word costs you. Cut the words the model does not need. Short and plain beats long and polished.
+
+### 3. A clear description, or it gets ignored
+
+The trigger and description are all the agent sees when it decides whether to use the skill. Vague, and it just sits there. Say what it does and exactly when to use it.
 
 ## The skills
 
