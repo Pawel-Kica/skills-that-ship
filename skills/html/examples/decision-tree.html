@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Should you add a cache?</title>
+<style>
+  :root{--bg:#F6F2EA;--ink:#1a1a1a;--muted:#6b6257;--accent:#C8553D;--line:#e3dcce;--card:#FBF8F1;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .wrap{max-width:820px;margin:0 auto;padding:56px 24px 80px}
+  h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:600;line-height:1.2;letter-spacing:-.01em}
+  h1{font-size:34px;margin:0 0 6px}
+  h2{font-size:20px;margin:40px 0 12px}
+  .sub{color:var(--muted);margin:0 0 8px;font-size:17px}
+  .node{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:0}
+  .q{font-weight:600}
+  .branch{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+  .arm{border-left:2px solid var(--line);padding:2px 0 2px 16px}
+  .label{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+  .yes{border-color:var(--accent)}
+  .verdict{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-top:10px}
+  .verdict.go{border-left:4px solid var(--accent)}
+  .verdict.stop{border-left:4px solid #9a9384}
+  table{width:100%;border-collapse:collapse;margin:8px 0 0}
+  th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:#efe9db;padding:1px 6px;border-radius:4px}
+  @media(max-width:760px){.branch{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Should you add a cache?</h1>
+  <p class="sub">Walk the tree before you reach for Redis. Most reads don't need it.</p>
+
+  <h2>The decision</h2>
+  <div class="node q">Is this read on a hot path? (called often, latency matters)</div>
+  <div class="branch">
+    <div class="arm">
+      <div class="label">No</div>
+      <div class="verdict stop">Don't cache. You're adding a moving part for a path nobody waits on. Revisit if it shows up in a trace.</div>
+    </div>
+    <div class="arm yes">
+      <div class="label">Yes</div>
+      <div class="node q">Is the underlying data slow to compute or fetch?</div>
+      <div class="branch">
+        <div class="arm">
+          <div class="label">No, it's a fast lookup</div>
+          <div class="verdict stop">Skip it. Index the query or fix the N+1 first. A cache hides a problem you can just solve.</div>
+        </div>
+        <div class="arm yes">
+          <div class="label">Yes</div>
+          <div class="node q">Can you tolerate stale reads for a bounded window?</div>
+          <div class="branch">
+            <div class="arm">
+              <div class="label">No, must be fresh</div>
+              <div class="verdict stop">Cache is a trap here. Optimize the source, or precompute on write instead of on read.</div>
+            </div>
+            <div class="arm yes">
+              <div class="label">Yes</div>
+              <div class="verdict go"><strong class="q">Cache it.</strong> Start with a short TTL, measure the hit rate, and only add invalidation once a TTL alone clearly isn't enough.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Pick the layer</h2>
+  <table>
+    <thead><tr><th>Layer</th><th>Good for</th><th>Cost when wrong</th></tr></thead>
+    <tbody>
+      <tr><td><code>HTTP / CDN</code></td><td>Public, identical responses</td><td>Serving stale to everyone</td></tr>
+      <tr><td><code>In-process</code></td><td>Tiny, per-node, hot config</td><td>Drift between nodes</td></tr>
+      <tr><td><code>Redis / shared</code></td><td>Cross-node, expensive compute</td><td>A new dependency to run</td></tr>
+      <tr><td><code>Precompute on write</code></td><td>Read-heavy, freshness matters</td><td>Heavier, more complex writes</td></tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

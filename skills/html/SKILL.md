@@ -5,7 +5,9 @@ description: Render a non-trivial answer as a self-contained HTML page and open 
 
 # HTML
 
-When the output is non-trivial, a single `.html` you open in the browser beats a wall of markdown. Idea from [Thariq Shihipar](https://x.com/trq212/status/2052809885763747935): [examples](https://thariqs.github.io/html-effectiveness/), [repo](https://github.com/ThariqS/html-effectiveness).
+When the output is non-trivial, a single `.html` you open in the browser beats a wall of markdown. (Idea popularized by Thariq Shihipar's html-effectiveness.)
+
+See [`examples/`](https://github.com/Pawel-Kica/skills-that-ship/tree/main/skills/html/examples) for ready-to-crib pages in this exact style: a decision tree, a comparison matrix, an annotated code review, a report dashboard, and an inline-SVG diagram. Open `examples/index.html` for the gallery.
 
 Explicit trigger only. When invoked: read the context, pick a category, ship. Don't ask what they want.
 
@@ -33,7 +35,7 @@ Self-contained `.html`. Inline CSS/JS, no build. CDN libs only when earned (Char
 
 Minimal: cream `#F6F2EA`, near-black text, serif headlines, sans body, accent `#C8553D` used sparingly, max-width 720-900px for prose. No shadows, gradients, or emoji. "Make it pop" → go bolder and commit.
 
-Stuck for a layout: `gh api repos/ThariqS/html-effectiveness/contents/<category>` or WebFetch a demo URL.
+Stuck for a layout: crib from the [`examples/`](https://github.com/Pawel-Kica/skills-that-ship/tree/main/skills/html/examples) folder, one per category.
 
 ## Output
 
