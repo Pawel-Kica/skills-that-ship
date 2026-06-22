@@ -2,7 +2,7 @@
 
 Claude Code skills I actually use to ship faster. Not prompts you paste, skills you install: each one becomes a `/command` your agent runs on demand.
 
-Six of them, the ones that earn their place.
+Eight of them, the ones that earn their place.
 
 ## Install
 
@@ -66,6 +66,14 @@ Plan before execute. Lays out the exact steps, tools, and commands, then waits f
 ### 6. 🤖 afk-mode
 
 Hand it the wheel. Takes the task end to end with no clarifying questions, notes the defaults it picked, and leaves a report when it's done.
+
+### 7. 🦆 rubber-duck
+
+Debug by being asked, not told. It questions you one step at a time until you spot the bug yourself, instead of handing you the answer.
+
+### 8. 🧐 second-opinion
+
+Argues the strongest honest case against your plan before you commit, then tells you which way it'd actually go. Kills bad plans early.
 
 ## License
 
